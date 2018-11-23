@@ -123,19 +123,19 @@ endif
 
 # AArch64 NEON optims
 ifeq ($(SYS_ARCH),AARCH64)
-ASMSRC += common/aarch64/bitstream-a.S \
-          common/aarch64/cabac-a.S     \
-          common/aarch64/dct-a.S     \
-          common/aarch64/deblock-a.S \
-          common/aarch64/mc-a.S      \
-          common/aarch64/pixel-a.S   \
-          common/aarch64/predict-a.S \
-          common/aarch64/quant-a.S
-SRCS   += common/aarch64/asm-offsets.cc \
-          common/aarch64/mc-c.cc        \
-          common/aarch64/predict-c.cc
-OBJASM  = $(ASMSRC:%.S=%.o)
-OBJCHK += tools/checkasm-aarch64.o
+#ASMSRC += common/aarch64/bitstream-a.S \
+#          common/aarch64/cabac-a.S     \
+#          common/aarch64/dct-a.S     \
+#          common/aarch64/deblock-a.S \
+#          common/aarch64/mc-a.S      \
+#          common/aarch64/pixel-a.S   \
+#          common/aarch64/predict-a.S \
+#          common/aarch64/quant-a.S
+#SRCS   += common/aarch64/asm-offsets.cc \
+#          common/aarch64/mc-c.cc        \
+#          common/aarch64/predict-c.cc
+#OBJASM  = $(ASMSRC:%.S=%.o)
+#OBJCHK += tools/checkasm-aarch64.o
 endif
 
 # MSA optims
