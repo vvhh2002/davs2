@@ -42,8 +42,8 @@ extern "C" {
  * ===========================================================================
  */
 
-#include "osdep.h"
 #include "defines.h"
+#include "osdep.h"
 #include "davs2.h"
 
 #include <stdlib.h>
@@ -1417,14 +1417,23 @@ typedef union {
 #define CP32(dst,src)           M32(dst)  = M32(src)
 #define CP64(dst,src)           M64(dst)  = M64(src)
 
+/* ---------------------------------------------------------------------------
+ * assert
+ */
+#define DAVS2_ASSERT(expression, ...)   if (!(expression)) { davs2_log(NULL, DAVS2_LOG_ERROR, __VA_ARGS__); }
 
 /* ---------------------------------------------------------------------------
  * list
  */
+#define xl_init         FPFX(xl_init)
 int   xl_init          (xlist_t *const xlist);
+#define xl_destroy      FPFX(xl_destroy)
 void  xl_destroy       (xlist_t *const xlist);
+#define xl_append       FPFX(xl_append)
 void  xl_append        (xlist_t *const xlist, void *node);
+#define xl_remove_head  FPFX(xl_remove_head)
 void *xl_remove_head   (xlist_t *const xlist, const int wait);
+#define xl_remove_head_ex FPFX(xl_remove_head_ex)
 void *xl_remove_head_ex(xlist_t *const xlist);
 
 #ifdef __cplusplus

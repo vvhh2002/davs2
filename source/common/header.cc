@@ -263,7 +263,7 @@ int parse_sequence_header(davs2_mgr_t *mgr, davs2_seq_t *seq, davs2_bs_t *bs)
     seq->cross_loop_filter_flag    = u_flag(bs, "Cross Loop Filter Flag");
     u_v(bs, 2,  "reserved bits");
 
-    bs_alain(bs); /* align position */
+    bs_align(bs); /* align position */
 
     seq->head.bitrate    = ((seq->bit_rate_upper << 18) + seq->bit_rate_lower) * 400;
     seq->head.frame_rate = FRAME_RATE[seq->head.frame_rate_id - 1];
@@ -478,7 +478,7 @@ static int parse_picture_header_intra(davs2_t *h, davs2_bs_t *bs)
     }
 
     /* align position in bitstream buffer */
-    bs_alain(bs);
+    bs_align(bs);
 
     return 0;
 }
@@ -676,7 +676,7 @@ static int parse_picture_header_inter(davs2_t *h, davs2_bs_t *bs)
     }
 
     /* align position in bitstream buffer */
-    bs_alain(bs);
+    bs_align(bs);
 
     return 0;
 }
@@ -787,11 +787,12 @@ void parse_slice_header(davs2_t *h, davs2_bs_t *bs)
         h->b_fixed_slice_qp = u_flag(bs, "fixed_slice_qp");
         h->i_slice_qp       = u_v(bs, 7, "slice_qp");
 
-        h->i_qp  = h->i_slice_qp;
-        h->b_DQP = !h->b_fixed_slice_qp;
+        h->b_DQP            = !h->b_fixed_slice_qp;
     } else {
-        h->b_DQP = 0;
+        h->i_slice_qp       = h->i_picture_qp;
+        h->b_DQP            = 0;
     }
+    h->i_qp = h->i_slice_qp;
 
     if (!is_valid_qp(h, h->i_qp)) {
         davs2_log(h, DAVS2_LOG_ERROR, "Invalid Slice QP: %d\n", h->i_qp);

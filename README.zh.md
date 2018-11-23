@@ -8,6 +8,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/pkuvcl/davs2.svg)](https://github.com/pkuvcl/davs2/issues)
 [![GitHub forks](https://img.shields.io/github/forks/pkuvcl/davs2.svg)](https://github.com/pkuvcl/davs2/network)
 [![GitHub stars](https://img.shields.io/github/stars/pkuvcl/davs2.svg)](https://github.com/pkuvcl/davs2/stargazers)
+[![Stargazers over time](https://starcharts.herokuapp.com/pkuvcl/davs2.svg)](https://starcharts.herokuapp.com/pkuvcl/davs2)
 
 ## 编译方法
 ### Windows
@@ -43,9 +44,14 @@ $ make
 
 ## 运行和测试
 
-运行命令:
+使用`1`个线程解码AVS2码流文件`test.avs`并将结果输出成YUV文件`dec.yuv`:
 ```
-./davs2 -i test.avs -o dec.yuv [-r rec.yuv] [-t N]
+./davs2 -i test.avs -t 1 -o dec.yuv
+```
+
+解码AVS2码流文件`test.avs`并用ffplay播放显示:
+```
+./davs2 -i test.avs -t 1 -o stdout | ffplay -i -
 ```
 
 ### 参数说明
@@ -58,6 +64,15 @@ $ make
 | --md5=M          | -m M        |  设置参考MD5值, 用于验证输出的重构YUV是否匹配 |
 | --verbose        | -v          |  设置每帧是否输出 (默认: 开启) |
 | --help           | -h          |  显示此输出命令 |
+
+## Issue & Pull Request
+
+欢迎提交 issue，请写清楚遇到问题的环境与运行参数，包括操作系统环境、编译器环境等。
+如果可能提供原始输入`YUV/码流文件`，请尽量提供以方便更快地重现结果。
+
+[反馈问题的 issue 请按照模板格式填写][6]。
+
+如果有开发能力，建议在本地调试出错的代码，并[提供相应修正的 Pull Request][7]。
 
 ## 主页链接
 
@@ -72,3 +87,5 @@ $ make
   [3]: https://gitee.com/pkuvcl/xavs2 "xavs2 gitee repository"
   [4]: https://github.com/pkuvcl/davs2 "davs2 decoder@github"
   [5]: https://gitee.com/pkuvcl/davs2 "davs2 decoder@gitee"
+  [6]: https://github.com/pkuvcl/davs2/issues "report issues"
+  [7]: https://github.com/pkuvcl/davs2/pulls "pull request"

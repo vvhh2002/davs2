@@ -42,8 +42,8 @@
 #include <assert.h>
 
 #include "davs2.h"
-#include "psnr.h"
 #include "utils.h"
+#include "psnr.h"
 #include "parse_args.h"
 #include "inputstream.h"
 #include "md5.h"
@@ -86,7 +86,7 @@ unsigned int   MD5val[4];
 char           MD5str[33];
 
 davs2_input_param_t inputparam = {
-    NULL, NULL, NULL, 0, 0, 0
+    NULL, NULL, NULL, NULL, 0, 0, 0, 0
 };
 
 
@@ -110,10 +110,29 @@ void output_decoded_frame(davs2_picture_t *pic, davs2_seq_info_t *headerset, int
 
     if (pic == NULL || ret_type == DAVS2_GOT_HEADER) {
         show_message(CONSOLE_GREEN,
-            "  Sequence size: %dx%d; BitDepth: %d/%d, FrameRate: %.3lf Hz\n\n", 
+            "  Sequence size: %dx%d, %d/%d-bit %.3lf Hz. ProfileLevel: 0x%x-0x%x\n\n", 
             headerset->width, headerset->height, 
             headerset->internal_bit_depth, headerset->output_bit_depth,
-            headerset->frame_rate);
+            headerset->frame_rate,
+            headerset->profile_id, headerset->level_id);
+
+        if (inputparam.b_y4m) {
+            static const int FRAME_RATE[9][2] = {
+                { 0, 1},  // invalid
+                { 24000, 1001 },
+                { 24, 1 },
+                { 25, 1 },
+                { 30000, 1001 },
+                { 30, 1 }, 
+                { 50, 1 },
+                { 60000, 1001 },
+                { 60, 1 }
+            };
+            int fps_num = FRAME_RATE[headerset->frame_rate_id][0];
+            int fps_den = FRAME_RATE[headerset->frame_rate_id][1];
+            write_y4m_header(inputparam.g_outfile, headerset->width, headerset->height,
+                             fps_num, fps_den, headerset->output_bit_depth);
+        }
         return;
     }
 
@@ -148,7 +167,7 @@ void output_decoded_frame(davs2_picture_t *pic, davs2_seq_info_t *headerset, int
     }
 
     if (inputparam.g_outfile) {
-        write_frame(pic, inputparam.g_outfile);
+        write_frame(pic, inputparam.g_outfile, inputparam.b_y4m);
     }
 }
 
@@ -176,12 +195,14 @@ void test_decoder(uint8_t *data_buf, int data_len, int num_frames, char *dst)
 
     const uint8_t *data = data_buf;
     const uint8_t *data_next_start_code;
-    int user_dts = 0;  // only used to check the returning value of DTS and PTS
+    int user_dts = 0; // only used to check the returning value of DTS and PTS
 
     /* init the decoder */
+    memset(&param, 0, sizeof(param));
     param.threads      = inputparam.g_threads;
     param.opaque       = (void *)(intptr_t)num_frames;
     param.info_level   = DAVS2_LOG_DEBUG;
+    param.disable_avx  = 0; // on some platforms, disable AVX (setting to 1) would be faster
 
     decoder = davs2_decoder_open(&param);
 
@@ -209,7 +230,7 @@ void test_decoder(uint8_t *data_buf, int data_len, int num_frames, char *dst)
 
         got_frame = davs2_decoder_send_packet(decoder, &packet);
         if (got_frame == DAVS2_ERROR) {
-            printf("Error: An decoder error counted\n");
+            show_message(CONSOLE_RED, "Error: An decoder error counted\n");
             break;
         }
 
@@ -307,7 +328,7 @@ int main(int argc, char *argv[])
     /* test decoding */
     test_decoder(data, size, frames, dst);
 
-    printf("\n Decoder Total Time: %.3lf s\n", (clock() - tm_start) / (double)(CLOCKS_PER_SEC));
+    show_message(CONSOLE_WHITE, "\n Decoder Total Time: %.3lf s\n", (clock() - tm_start) / (double)(CLOCKS_PER_SEC));
 
 fail:
     /* tidy up */
@@ -336,15 +357,15 @@ fail:
         filelength = FileMD5(inputparam.s_outfile, MD5val);
         sprintf (MD5str,"%08X%08X%08X%08X", MD5val[0], MD5val[1], MD5val[2], MD5val[3]);
         if (strcmp(MD5str,inputparam.s_md5)) {
-            printf("\n  MD5 match failed\n");
-            printf("  Input  MD5 : %s \n", inputparam.s_md5);
-            printf("  Output MD5 : %s \n", MD5str);
+            show_message(CONSOLE_RED, "\n  MD5 match failed\n");
+            show_message(CONSOLE_WHITE, "  Input  MD5 : %s \n", inputparam.s_md5);
+            show_message(CONSOLE_WHITE, "  Output MD5 : %s \n", MD5str);
         } else {
-            printf("\n  MD5 match success \n");
+            show_message(CONSOLE_WHITE, "\n  MD5 match success \n");
         }
     }
 
-    printf(" Decoder Exit, Time: %.3lf s\n", (clock() - tm_start) / (double)(CLOCKS_PER_SEC));
+    show_message(CONSOLE_WHITE, " Decoder Exit, Time: %.3lf s\n", (clock() - tm_start) / (double)(CLOCKS_PER_SEC));
     return 0;
 }
 
