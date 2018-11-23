@@ -288,9 +288,9 @@ davs2_frame_t *davs2_frame_new(int width, int height, int chroma_format, uint8_t
     frame->planes[0] += frame->i_stride[0] * (AVS2_PAD    ) + (AVS2_PAD    );
     frame->planes[1] += frame->i_stride[1] * (AVS2_PAD / 2) + (AVS2_PAD / 2);
     frame->planes[2] += frame->i_stride[2] * (AVS2_PAD / 2) + (AVS2_PAD / 2);
-    ALIGN_POINTER(frame->planes[0]);
-    ALIGN_POINTER(frame->planes[1]);
-    ALIGN_POINTER(frame->planes[2]);
+    ALIGN_POINTER_16(frame->planes[0]);
+    ALIGN_POINTER_16(frame->planes[1]);
+    ALIGN_POINTER_16(frame->planes[2]);
 
     if (b_extra) {
         /* M2, reference index buffer (in SPU) */
@@ -381,7 +381,7 @@ void davs2_frame_copy_planes(davs2_frame_t *p_dst, davs2_frame_t *p_src)
 
     /* copy all plane data */
 #if 1
-    /* Ê¹ÓÃ¶ÔÆëµØÖ·µÄÄÚ´æ¿½±´£¬½øĞĞÒ»´Î´óÊı¾İÁ¿µØ¿½±´ */
+    /* Ê¹ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Ú´æ¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¿ï¿½ï¿½ï¿½ */
     assert(p_src->i_stride[0] == p_dst->i_stride[0]);
     assert(p_src->i_stride[1] == p_dst->i_stride[1]);
     assert(p_src->i_stride[2] == p_dst->i_stride[2]);

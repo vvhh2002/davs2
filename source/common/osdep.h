@@ -44,7 +44,7 @@ extern "C" {
 #define _CRT_NONSTDC_NO_DEPRECATE
 #define _CRT_SECURE_NO_DEPRECATE
 #define _CRT_SECURE_NO_WARNINGS
-#pragma warning(disable:4324)     /* disable warning C4324: ÓÉÓÚ __declspec(align())£¬½á¹¹±»Ìî³ä */
+#pragma warning(disable:4324)     /* disable warning C4324: ï¿½ï¿½ï¿½ï¿½ __declspec(align())ï¿½ï¿½ï¿½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½ */
 #endif
 
 /**
@@ -179,6 +179,7 @@ extern "C" {
 /* align a pointer */
 #  define CACHE_LINE_SIZE       32    /* for x86-64 and x86 */
 #  define ALIGN_POINTER(p)      (p) = (uint8_t *)((intptr_t)((p) + (CACHE_LINE_SIZE - 1)) & (~(intptr_t)(CACHE_LINE_SIZE - 1)))
+#  define ALIGN_POINTER_16(p)      (p) = (uint16_t *)((intptr_t)((p) + (CACHE_LINE_SIZE - 1)) & (~(intptr_t)(CACHE_LINE_SIZE - 1)))
 #  define CACHE_LINE_256B       32    /* for x86-64 and x86 */
 #  define ALIGN_256_PTR(p)      (p) = (uint8_t *)((intptr_t)((p) + (CACHE_LINE_256B - 1)) & (~(intptr_t)(CACHE_LINE_256B - 1)))
 
