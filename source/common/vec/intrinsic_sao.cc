@@ -41,10 +41,10 @@
 #include <smmintrin.h>
 
 #ifdef _MSC_VER
-#pragma warning(disable:4244)  // TODO: ÐÞÕý±àÒëwarning
+#pragma warning(disable:4244)  // TODO: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½warning
 #endif
 
-#if !HIGH_BIT_DEPTH
+//#if !HIGH_BIT_DEPTH
 /* ---------------------------------------------------------------------------
  * lcu neighbor
  */
@@ -734,4 +734,4 @@ void SAO_on_block_bo_sse128(pel_t *p_dst, int i_dst,
     }
 }
 
-#endif // !HIGH_BIT_DEPTH
+//#endif // !HIGH_BIT_DEPTH
