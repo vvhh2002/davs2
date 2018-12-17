@@ -39,7 +39,7 @@
 #include "../common.h"
 #include "intrinsic.h"
 
-#if !HIGH_BIT_DEPTH
+//#if !HIGH_BIT_DEPTH
 /* ---------------------------------------------------------------------------
  */
 void intpl_chroma_block_hor_sse128(pel_t *dst, int i_dst, pel_t *src, int i_src, int width, int height, const int8_t *coeff)
@@ -3933,7 +3933,7 @@ void intpl_luma_block_ver0_sse128(pel_t *dst, int i_dst, pel_t *src, int i_src, 
 
             T00 = _mm_adds_epi16(_mm_cvtepu8_epi16(T00), _mm_cvtepu8_epi16(T70));
             T10 = _mm_adds_epi16(_mm_cvtepu8_epi16(T10), _mm_cvtepu8_epi16(T60));
-            T10 = _mm_subs_epi16(_mm_slli_epi16(T10, 2), _mm_cvtepu8_epi16(T60));//ÔËËãÖÜÆÚÓÉÔ­À´µÄ12¼õÎª9
+            T10 = _mm_subs_epi16(_mm_slli_epi16(T10, 2), _mm_cvtepu8_epi16(T60));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½12ï¿½ï¿½Îª9
             T20 = _mm_maddubs_epi16(_mm_unpacklo_epi8(T20, T30), coeff1);
             T30 = _mm_maddubs_epi16(_mm_unpacklo_epi8(T40, T50), coeff2);
             
@@ -3959,7 +3959,7 @@ void intpl_luma_block_ver0_sse128(pel_t *dst, int i_dst, pel_t *src, int i_src, 
 
             T00 = _mm_adds_epi16(_mm_cvtepu8_epi16(T00), _mm_cvtepu8_epi16(T70));
             T10 = _mm_adds_epi16(_mm_cvtepu8_epi16(T10), _mm_cvtepu8_epi16(T60));
-            T10 = _mm_subs_epi16(_mm_slli_epi16(T10, 2), _mm_cvtepu8_epi16(T60));//ÔËËãÖÜÆÚÓÉÔ­À´µÄ12¼õÎª9
+            T10 = _mm_subs_epi16(_mm_slli_epi16(T10, 2), _mm_cvtepu8_epi16(T60));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½12ï¿½ï¿½Îª9
             T20 = _mm_maddubs_epi16(_mm_unpacklo_epi8(T20, T30), coeff1);
             T30 = _mm_maddubs_epi16(_mm_unpacklo_epi8(T40, T50), coeff2);
 
@@ -4960,4 +4960,4 @@ void intpl_luma_block_ext_sse128(pel_t *dst, int i_dst, pel_t *src, int i_src, i
         }
     }
 }
-#endif
+//#endif

@@ -39,7 +39,7 @@
 #include <smmintrin.h>
 
 
-#if !HIGH_BIT_DEPTH
+//#if !HIGH_BIT_DEPTH
 
 static ALIGN16(int8_t tab_coeff_mode_5[8][16]) = {
     { 20, 52, 44, 12, 20, 52, 44, 12, 20, 52, 44, 12, 20, 52, 44, 12 },
@@ -366,7 +366,7 @@ void intra_pred_bilinear_sse128(pel_t *src, pel_t *dst, int i_dst, int dir_mode,
     __m128i T, T1, T2, T3, C1, C2, ADD;
     __m128i ZERO = _mm_setzero_si128();
 
-    /* TODO: ÎªÊ²Ã´Õâ¼¸¸öÊý×éµÄ´óÐ¡ÐèÒªÔö¼Óµ½ 32£¬ÊÇ·ñÓÐ±ØÒª£¿ */
+    /* TODO: ÎªÊ²Ã´ï¿½â¼¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡ï¿½ï¿½Òªï¿½ï¿½ï¿½Óµï¿½ 32ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ð±ï¿½Òªï¿½ï¿½ */
     ALIGN32(itr_t pTop [MAX_CU_SIZE + 32]);
     ALIGN32(itr_t pLeft[MAX_CU_SIZE + 32]);
     ALIGN32(itr_t pT   [MAX_CU_SIZE + 32]);
@@ -6828,7 +6828,7 @@ void intra_pred_ang_xy_14_sse128(pel_t *src, pel_t *dst, int i_dst, int dir_mode
             ((int*)&pfirst[3][i])[0] = _mm_cvtsi128_si32(p00);
         }
 
-        if (i < left_size) { //Ê¹ÓÃcÓïÑÔ¿ÉÄÜ»á¸üÓÅ
+        if (i < left_size) { //Ê¹ï¿½ï¿½cï¿½ï¿½ï¿½Ô¿ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½
             __m128i p00, p01, p10;
             __m128i p20, p30;
             __m128i S0 = _mm_loadu_si128((__m128i*)(src - 1));
@@ -8302,4 +8302,4 @@ void intra_pred_ang_xy_23_sse128(pel_t *src, pel_t *dst, int i_dst, int dir_mode
 
 }
 
-#endif // #if !HIGH_BIT_DEPTH
+//#endif // #if !HIGH_BIT_DEPTH

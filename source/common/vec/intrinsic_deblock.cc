@@ -38,7 +38,7 @@
 #include <tmmintrin.h>
 #include <smmintrin.h>
 
-#if !HIGH_BIT_DEPTH
+//#if !HIGH_BIT_DEPTH
 
 void deblock_edge_ver_sse128(pel_t *SrcPtr, int stride, int Alpha, int Beta, uint8_t *flt_flag)
 {
@@ -825,4 +825,4 @@ void deblock_edge_hor_c_sse128(pel_t *SrcPtrU, pel_t *SrcPtrV, int stride, int A
     ((int32_t*)(SrcPtrV + inc ))[0] = M128_I32(UR1, 1);
 }
 
-#endif // #if !HIGH_BIT_DEPTH
+//#endif // #if !HIGH_BIT_DEPTH

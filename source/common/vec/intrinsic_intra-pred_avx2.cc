@@ -39,12 +39,12 @@
 #include "../common.h"
 #include "intrinsic.h"
 
-#if !HIGH_BIT_DEPTH
+//#if !HIGH_BIT_DEPTH
 
 void intra_pred_ver_avx(pel_t *src, pel_t *dst, int i_dst, int dir_mode, int bsx, int bsy)
 {
     if (bsx <= 8 && bsy <= 8) {
-        // µ±block_sizeÐ¡ÓÚ8Ê±avx2±ÈsseÂý
+        // ï¿½ï¿½block_sizeÐ¡ï¿½ï¿½8Ê±avx2ï¿½ï¿½sseï¿½ï¿½
         intra_pred_ver_sse128(src, dst, i_dst, dir_mode, bsx, bsy);
         return;
     }
@@ -91,7 +91,7 @@ void intra_pred_ver_avx(pel_t *src, pel_t *dst, int i_dst, int dir_mode, int bsx
 void intra_pred_hor_avx(pel_t *src, pel_t *dst, int i_dst, int dir_mode, int bsx, int bsy)
 {
     if (bsx <= 8 && bsy <= 8) {
-        // µ±block_sizeÐ¡ÓÚ8Ê±avx2±ÈsseÂý
+        // ï¿½ï¿½block_sizeÐ¡ï¿½ï¿½8Ê±avx2ï¿½ï¿½sseï¿½ï¿½
         intra_pred_hor_sse128(src, dst, i_dst, dir_mode, bsx, bsy);
         return;
     }
@@ -136,7 +136,7 @@ void intra_pred_hor_avx(pel_t *src, pel_t *dst, int i_dst, int dir_mode, int bsx
 void intra_pred_dc_avx(pel_t *src, pel_t *dst, int i_dst, int dir_mode, int bsx, int bsy)
 {
     if (bsx <= 8 && bsy <= 8) {
-        // µ±block_sizeÐ¡ÓÚ8Ê±avx2±ÈsseÂý
+        // ï¿½ï¿½block_sizeÐ¡ï¿½ï¿½8Ê±avx2ï¿½ï¿½sseï¿½ï¿½
         intra_pred_dc_sse128(src, dst, i_dst, dir_mode, bsx, bsy);
         return;
     }
@@ -330,7 +330,7 @@ void intra_pred_bilinear_avx(pel_t *src, pel_t *dst, int i_dst, int dir_mode, in
 
     __m256i T, T1, T2, T3, C1, C2, ADD;
 
-    /* TODO: ÎªÊ²Ã´Õâ¼¸¸öÊý×éµÄ´óÐ¡ÐèÒªÔö¼Óµ½ 32£¬ÊÇ·ñÓÐ±ØÒª£¿ */
+    /* TODO: ÎªÊ²Ã´ï¿½â¼¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡ï¿½ï¿½Òªï¿½ï¿½ï¿½Óµï¿½ 32ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ð±ï¿½Òªï¿½ï¿½ */
     ALIGN32(itr_t pTop[MAX_CU_SIZE + 32]);
     ALIGN32(itr_t pLeft[MAX_CU_SIZE + 32]);
     ALIGN32(itr_t pT[MAX_CU_SIZE + 32]);
@@ -342,7 +342,7 @@ void intra_pred_bilinear_avx(pel_t *src, pel_t *dst, int i_dst, int dir_mode, in
     p = src + 1;
     __m256i ZERO = _mm256_setzero_si256();
     for (x = 0; x < bsx; x += 32) {
-        T = _mm256_loadu_si256((__m256i*)(p + x));//8bit 32¸ö
+        T = _mm256_loadu_si256((__m256i*)(p + x));//8bit 32ï¿½ï¿½
         T1 = _mm256_unpacklo_epi8(T, ZERO); //0 2
         T2 = _mm256_unpackhi_epi8(T, ZERO); //1 3
         T = _mm256_permute2x128_si256(T1, T2, 0x0020);
@@ -2142,7 +2142,7 @@ void intra_pred_ang_x_8_avx(pel_t *src, pel_t *dst, int i_dst, int dir_mode, int
     pel_t *pfirst[2];
     __m256i zero = _mm256_setzero_si256();
 
-    __m256i coeff   = _mm256_set1_epi16(3); //16¸ö
+    __m256i coeff   = _mm256_set1_epi16(3); //16ï¿½ï¿½
     __m256i offset1 = _mm256_set1_epi16(4);
     __m256i offset2 = _mm256_set1_epi16(2);
 
@@ -3381,7 +3381,7 @@ void intra_pred_ang_y_25_avx(pel_t *src, pel_t *dst, int i_dst, int dir_mode, in
 
         }
         
-        //if (bsx == 16) {// 8¸ö
+        //if (bsx == 16) {// 8ï¿½ï¿½
         //    __m256i mask = _mm256_loadu_si256((__m256i*)intrinsic_mask_256_8bit[7]);
         //    p00 = _mm256_mullo_epi16(L0, coeff0);
         //    p10 = _mm256_mullo_epi16(L1, coeff1);
@@ -5502,7 +5502,7 @@ void intra_pred_ang_xy_14_avx(pel_t *src, pel_t *dst, int i_dst, int dir_mode, i
             _mm256_maskstore_epi64(((__int64 *)(pfirst[3] + i     )), mask0, p10);
         }
 
-        if (i < left_size) { //sse°æ±¾±Èavx¿ì£¬´¦ÀíµÄÊý¾Ý½ÏÉÙ
+        if (i < left_size) { //sseï¿½æ±¾ï¿½ï¿½avxï¿½ì£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½
             __m128i shuffle1 = _mm_setr_epi8(0, 4, 1, 5, 2, 6, 3, 7, 0, 4, 1, 5, 2, 6, 3, 7);
             __m128i coeff2 = _mm_set1_epi16(2);
             __m128i zero = _mm_setzero_si128();
@@ -7615,4 +7615,4 @@ void intra_pred_ang_xy_23_avx(pel_t *src, pel_t *dst, int i_dst, int dir_mode, i
     }
 }
 
-#endif
+//#endif

@@ -39,10 +39,10 @@
 #include <smmintrin.h>
 
 
-#if !HIGH_BIT_DEPTH
+//#if !HIGH_BIT_DEPTH
 /* ---------------------------------------------------------------------------
  * fill reference samples for intra prediction
- * LCUÄÚÔÚ×ó±ß½çÉÏµÄPU
+ * LCUï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ïµï¿½PU
  */
 void fill_edge_samples_0_sse128(const pel_t *pTL, int i_TL, const pel_t *pLcuEP, pel_t *EP, uint32_t i_avai, int bsx, int bsy)
 {
@@ -157,7 +157,7 @@ void fill_edge_samples_0_sse128(const pel_t *pTL, int i_TL, const pel_t *pLcuEP,
 
 /* ---------------------------------------------------------------------------
  * fill reference samples for intra prediction
- * LCUÄÚÔÚ×ó±ß½çÉÏµÄPU
+ * LCUï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ïµï¿½PU
  */
 void fill_edge_samples_x_sse128(const pel_t *pTL, int i_TL, const pel_t *pLcuEP, pel_t *EP, uint32_t i_avai, int bsx, int bsy)
 {
@@ -282,7 +282,7 @@ void fill_edge_samples_x_sse128(const pel_t *pTL, int i_TL, const pel_t *pLcuEP,
 
 /* ---------------------------------------------------------------------------
  * fill reference samples for intra prediction
- * LCUÄÚÔÚ×ó±ß½çÉÏµÄPU
+ * LCUï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ïµï¿½PU
  */
 void fill_edge_samples_y_sse128(const pel_t *pTL, int i_TL, const pel_t *pLcuEP, pel_t *EP, uint32_t i_avai, int bsx, int bsy)
 {
@@ -398,7 +398,7 @@ void fill_edge_samples_y_sse128(const pel_t *pTL, int i_TL, const pel_t *pLcuEP,
 
 /* ---------------------------------------------------------------------------
  * fill reference samples for intra prediction
- * LCUÄÚÔÚ×ó±ß½çÉÏµÄPU
+ * LCUï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ïµï¿½PU
  */
 void fill_edge_samples_xy_sse128(const pel_t *pTL, int i_TL, const pel_t *pLcuEP, pel_t *EP, uint32_t i_avai, int bsx, int bsy)
 {
@@ -523,4 +523,4 @@ void fill_edge_samples_xy_sse128(const pel_t *pTL, int i_TL, const pel_t *pLcuEP
     }
 }
 
-#endif // #if !HIGH_BIT_DEPTH
+//#endif // #if !HIGH_BIT_DEPTH

@@ -39,7 +39,7 @@
 #include "../common.h"
 #include "intrinsic.h"
 
-#if !HIGH_BIT_DEPTH
+//#if !HIGH_BIT_DEPTH
 __m128i c_0_128;
 
 __m256i c_f;
@@ -623,7 +623,7 @@ void deblock_edge_hor_avx2(pel_t *SrcPtr, int stride, int Alpha, int Beta, uint8
 
 }
 
-//ÐèÒªÐÞ¸Ä±äÁ¿  ÐÞ¸Ä±äÁ¿   i32s_tÎªint32_t;£¨signed int£©
+//ï¿½ï¿½Òªï¿½Þ¸Ä±ï¿½ï¿½ï¿½  ï¿½Þ¸Ä±ï¿½ï¿½ï¿½   i32s_tÎªint32_t;ï¿½ï¿½signed intï¿½ï¿½
 void deblock_edge_hor_c_avx2(pel_t *SrcPtrU, pel_t *SrcPtrV, int stride, int Alpha, int Beta, uint8_t *flt_flag)
 {
     int inc = stride;
@@ -745,4 +745,4 @@ void deblock_edge_hor_c_avx2(pel_t *SrcPtrU, pel_t *SrcPtrV, int stride, int Alp
     _mm256_maskstore_epi32(((int32_t*)(SrcPtrV + inc - 20)), mask5, TLR1w);
 }
 
-#endif
+//#endif
